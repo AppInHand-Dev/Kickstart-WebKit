@@ -1,0 +1,11 @@
+.\.htaccess
+RewriteBase /
+ErrorDocument 404 /index.php?params=404/
+ErrorDocument 403 /index.php?params=403/
+
+.\assets\config\config.php
+- define("BASE_URL", "https://www.domain.com");
+
+.\robots.txt
+
+delete .vscode if exists

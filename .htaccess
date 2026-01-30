@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	#RewriteBase /
+	RewriteBase /sites/kickstart-webkit/
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	#RewriteRule ^(?:([0-9A-Za-z-]+)(?:/([0-9A-Za-z-]+))?(?:/([0-9A-Za-z-]+))?(?:/([0-9A-Za-z-]+))?)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4 [NC,L]
+	RewriteRule ^(.*)/?$ index.php?params=$1 [NC,L,QSA]
+
+	#RewriteRule ^(.*)/?(\?lang=en_GB)$ $1 [NC,L]
+	#RewriteRule ^\?lang=en_GB$ index.php [NC,L]
+	#ErrorDocument 404 /index.php?params=404/
+	ErrorDocument 404 /sites/kickstart-webkit/index.php?params=404/
+	#ErrorDocument 403 /index.php?params=403/
+	ErrorDocument 403 /sites/kickstart-webkit/index.php?params=403/
+</IfModule>

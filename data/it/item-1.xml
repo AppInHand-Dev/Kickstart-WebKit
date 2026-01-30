@@ -1,0 +1,11 @@
+<item>
+  <ID>item-1</ID>
+  <name>Item 1</name>
+  <pathUrl>category-1/item-1/</pathUrl>
+  <categories>
+    <category>
+      <name>category-1</name>
+      <pathUrl>category-1/</pathUrl>
+    </category>
+  </categories>
+</item>
