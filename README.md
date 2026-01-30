@@ -52,4 +52,4 @@ This is a personal project that I use to speed up my own work. While it is provi
 
 ### License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
