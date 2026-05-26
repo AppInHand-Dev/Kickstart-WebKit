@@ -1,0 +1,94 @@
+------------------------------
+## move-by-ext.ps1
+PowerShell script to move (cut) files by extension into organized format folders, featuring duplicate management and logging.
+------------------------------
+## Key Features
+
+* Recursive scanning of the Root folder.
+* Filtering by extensions (e.g., js,css,html) with robust argument normalization.
+* Optional filters: minimum/maximum size and modification time range.
+* Moving to Target\<extension>\ while preserving original names whenever possible.
+* Duplicate management: two strategies — timestamp (default) or increment.
+* Detailed CSV log with rows for each file: Timestamp,Source,Destination,Status,Message,SizeBytes,LastWriteTime.
+* DryRun mode to simulate operations without modifying any files.
+* Console debugging to verify how extensions are being normalized.
+
+------------------------------
+## Requirements
+
+* Windows PowerShell (modern version recommended).
+* Read/write permissions on the involved folders.
+* If working with protected paths, run PowerShell as administrator.
+
+------------------------------
+## Usage and Parameters
+
+.\move-by-ext.ps1 -Root "C:\project" -Target "C:\temp" -Extensions "js,css,html" -DryRun
+
+
+* -Root — folder to scan (default: current folder).
+* -Target — target destination folder (mandatory).
+* -Extensions — extensions to search for; accepts strings like "js,css" or multiple parameters; the value is automatically normalized.
+* -DryRun — simulation mode: no files are moved; actions are recorded in the log with Status=DRY.
+* -MinSizeMB — minimum size in MB (optional).
+* -MaxSizeMB — maximum size in MB (0 = no limit).
+* -ModifiedWithinHours — filters files modified within the last N hours (0 = no filter).
+* -RenameStrategy — timestamp (default) or increment to resolve name conflicts.
+* -LogFile — path to the CSV log file (default: Target\move-by-ext-log.csv).
+
+------------------------------
+## Practical Examples
+
+* Simulation from the current folder:
+
+.\move-by-ext.ps1 -Target "C:\temp" -Extensions "js,css" -DryRun
+
+
+* Real execution on a specific root:
+
+.\move-by-ext.ps1 -Root "C:\project" -Target "C:\temp" -Extensions "js,css,html"
+
+
+* Filter by size and date:
+
+.\move-by-ext.ps1 -Root "C:\project" -Target "C:\temp" -Extensions "js,css" -MinSizeMB 0.1 -ModifiedWithinHours 2
+
+
+* Passing the Extensions parameter multiple times:
+
+.\move-by-ext.ps1 -Target "C:\temp" -Extensions js -Extensions css -DryRun
+
+------------------------------
+## Duplicate Management and Logging
+
+* Timestamp strategy — adds a _YYYYMMDD_HHMMSSfff suffix before the extension (e.g., file_20260314_122630123.js). Useful for uniqueness and traceability.
+* Increment strategy — adds _1, _2, ... to the same base name. Useful for ordered file series.
+* CSV Log — every operation (DRY/OK/ERROR) is recorded with: Timestamp, Source, Destination, Status, Message, SizeBytes, LastWriteTime. The log file is located by default in Target\move-by-ext-log.csv.
+
+------------------------------
+## Quick Troubleshooting
+
+* If the Matching files count is 0: verify the -Root value and the extensions using:
+
+Get-ChildItem -Path (Resolve-Path ".").Path -Recurse -File |
+Where-Object { @("js","css") -contains $_.Extension.TrimStart('.').ToLower() } |
+Select-Object -First 20 FullName
+
+
+* If the script fails to detect extensions passed as a string, use the "js,css" format or pass -Extensions multiple times. The script normalizes both cases.
+* For console encoding issues (accented characters displaying incorrectly), set the encoding with:
+
+chcp 65001
+$OutputEncoding = [System.Text.UTF8Encoding]::new()
+
+
+* If some files are in use, Move-Item will fail for those specific files; the log will show Status=ERROR along with the exception message.
+
+------------------------------
+## Operational Tips
+
+* Always run in -DryRun first to check the file list and the log.
+* For large file trees, scanning may take time; consider running the script on sub-folders or using the MinSizeMB/ModifiedWithinHours filters to reduce the dataset.
+* If you need a different duplicate behavior (e.g., controlled overwrite or keeping both with metadata), I can adapt the script for you.
+
+------------------------------

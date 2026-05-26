@@ -1,7 +1,7 @@
 <?php
 /**
- * v2.1.0a
- * 10/06/2025
+ * v2.1.1a
+ * 26/05/2026
  * 
  */
 
@@ -14,7 +14,7 @@
 $bodyClasses = "category";
 
 ?>
-
+<?php // ↓ NO EMPTY LINES FOR A CORRECT HTML OUTPUT ?>
 <?php include THEME_PARTS_PATH . "/header.php"; ?>
 
 <?php include THEME_PARTS_PATH . "/breadcrumbs.php"; ?>

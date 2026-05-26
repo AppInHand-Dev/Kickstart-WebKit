@@ -3,9 +3,20 @@
 	#RewriteBase /
 	RewriteBase /sites/kickstart-webkit/
 
+	# se la richiesta è un file o una directory esistente, non riscrivere
+	# redirect temporaneo al prefisso lingua di default (it)
+	RewriteCond %{REQUEST_URI} !^/sites/kickstart-webkit/[a-z]{2}/
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	#RewriteRule ^(?:([0-9A-Za-z-]+)(?:/([0-9A-Za-z-]+))?(?:/([0-9A-Za-z-]+))?(?:/([0-9A-Za-z-]+))?)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4 [NC,L]
+	RewriteRule ^(.*)$ /sites/kickstart-webkit/it/$1 [R=302,L]
+
+	# 1) /it oppure /en (solo lingua) -> index.php?lang=it
+	RewriteRule ^([a-z]{2})/?$ index.php?lang=$1 [NC,L,QSA]
+
+	# 2) /it/qualcosa/... -> index.php?lang=it&params=qualcosa/...
+	RewriteRule ^([a-z]{2})/(.*)/?$ index.php?lang=$1&params=$2 [NC,L,QSA]
+
+	# 3) fallback senza lingua -> index.php?params=...
 	RewriteRule ^(.*)/?$ index.php?params=$1 [NC,L,QSA]
 
 	#RewriteRule ^(.*)/?(\?lang=en_GB)$ $1 [NC,L]

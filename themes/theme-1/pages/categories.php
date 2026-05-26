@@ -1,7 +1,7 @@
 <?php
 /**
- * v2.0.0a
- * 10/06/2025
+ * v2.0.1a
+ * 26/05/2026
  * 
  */
 
@@ -10,6 +10,7 @@
 	(index.php)
 
 */
+
 
 $_ARG2 = !empty($_ARGS) && isset($_ARGS[1]) && $_ARGS[1]!=""?htmlspecialchars($_ARGS[1]):"";
 $_ARG3 = !empty($_ARGS) && isset($_ARGS[2]) && $_ARGS[2]!=""?htmlspecialchars($_ARGS[2]):"";

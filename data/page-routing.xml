@@ -1,0 +1,12 @@
+<routing>
+  <it>
+    <categorie>categories</categorie>
+    <contatti>contacts</contatti>
+    <categoria-1>category-1</categoria-1>
+  </it>
+  <en>
+    <categories>categories</categories>
+    <contacts>contacts</contacts>
+    <category-1>category-1</category-1>
+  </en>
+</routing>
