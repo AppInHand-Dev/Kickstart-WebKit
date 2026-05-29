@@ -48,7 +48,7 @@ Before deploying your site to a live server, it is **essential** to read and fol
 
 This is a personal project that I use to speed up my own work. While it is provided "as-is", I have plans to improve it over time. The next major planned feature is:
 
-*   **Multi-language support:** Implementing a simple system to manage content in multiple languages.
+*   **Caching routing maps:** Reduce repeated parsing of page-routing.xml by serializing the generated routingMap and routingInverse to a fast cache file (preferably a PHP file that returns the arrays so it benefits from OPcache). In production load the cached file when up to date; in development allow disabling or forcing regeneration.
 
 ---
 
