@@ -9,6 +9,10 @@
       <text>categories</text>
     </item>
     <item>
+      <slug>portfolio</slug>
+      <text>portfolio</text>
+    </item>
+    <item>
       <slug>contacts</slug>
       <text>contacts</text>
     </item>

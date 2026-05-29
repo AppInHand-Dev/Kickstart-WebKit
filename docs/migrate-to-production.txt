@@ -20,9 +20,9 @@ DELETE NOT MINIFIED: search for "*.css" and "*.js", delete the files that have t
 DELETE FOLDERS:
 - docs
 - utilities
+- .vscode
 
 ________________________________________________________________________________________________________________________________________________________________________________________________________
-
 
 
 .\.htaccess
@@ -34,5 +34,3 @@ ErrorDocument 403 /index.php?params=403/
 - define("BASE_URL", "https://www.domain.com");
 
 .\robots.txt
-
-delete .vscode if exists

@@ -1,0 +1,30 @@
+<contents>
+  <meta>
+    <title>Portfolio | My WebSite</title>
+    <description>Portfolio: Mauris malesuada mi et risus scelerisque, vel viverra sapien cursus. Proin et mi euismod, vehicula quam nec, tristique nibh. Nunc euismod maximus lacus, eu tincidunt arcu.</description>
+  </meta>
+  <pageTitle>pagina portfolio</pageTitle>
+  <pageDescription>
+    <![CDATA[
+In sit amet semper augue. Morbi commodo ante ac ipsum dictum dapibus.
+]]>
+  </pageDescription>
+  <works>
+    <work>
+      <title>lavoro 1</title>
+      <description>Duis ut sodales nulla. Suspendisse vehicula elementum elit. Pellentesque interdum quis urna eu tristique. Aenean placerat, eros vitae blandit molestie, mi eros auctor orci, non mattis orci elit nec nunc.</description>
+      <projectText>Progetto</projectText>
+      <watchText>Vedi</watchText>
+      <clientText>Cliente</clientText>
+      <detailsText>Dettagli</detailsText>
+    </work>
+    <work>
+      <title>lavoro 2</title>
+      <description>Duis nec dolor sed eros faucibus posuere. Aliquam id enim massa. Vivamus suscipit vel sapien sit amet fermentum. Aenean eget tellus vitae justo rutrum fermentum eget luctus dolor.</description>
+      <projectText>Progetto</projectText>
+      <watchText>Vedi</watchText>
+      <clientText>Cliente</clientText>
+      <detailsText>Dettagli</detailsText>
+    </work>
+  </works>
+</contents>

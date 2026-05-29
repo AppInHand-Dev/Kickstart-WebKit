@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Home IT -->
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/"/>
+  </url>
+
+  <!-- Home EN -->
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/"/>
+  </url>
+
+  <!-- Main sections and pages (localized pairs) -->
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/categorie/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categorie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/categories/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/categories/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/categories/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categorie/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/portfolio/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/portfolio/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/portfolio/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/portfolio/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/contatti/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/contatti/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/contacts/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/contacts/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/contacts/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/contatti/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/privacy/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/privacy/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/privacy/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/privacy/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/cookie/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/cookie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/cookie/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/cookie/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/cookie/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/cookie/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/sitemap/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/sitemap/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/sitemap/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/sitemap/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/sitemap/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/sitemap/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/crediti/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/crediti/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/credits/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/credits/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/credits/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/crediti/"/>
+  </url>
+
+  <!-- Category pages -->
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/categoria-1/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-1/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/category-1/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-1/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-1/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/categoria-2/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-2/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/category-2/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-2/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-2/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/categoria-3/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-3/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-3/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/category-3/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-3/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-3/"/>
+  </url>
+
+  <!-- Item pages -->
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/categoria-1/elemento-1/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-1/elemento-1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-1/item-1/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/category-1/item-1/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-1/item-1/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-1/elemento-1/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/it/categoria-1/elemento-2/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-1/elemento-2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-1/item-2/"/>
+  </url>
+
+  <url>
+    <loc>http://localhost/kickstart-webkit/en/category-1/item-2/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="http://localhost/kickstart-webkit/en/category-1/item-2/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="http://localhost/kickstart-webkit/it/categoria-1/elemento-2/"/>
+  </url>
+
+</urlset>

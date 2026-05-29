@@ -1,6 +1,6 @@
 <?php
 /**
- * v1.3.0
+ * v1.0.0
  * 04/02/2026
  *
  * Breadcrumbs: build localized links using internal slugs ($_ARGS).

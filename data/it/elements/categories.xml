@@ -1,0 +1,19 @@
+<contents>
+  <items>
+    <item>
+      <root>categorie</root>
+      <slug>categoria-1</slug>
+      <text>Categoria 1</text>
+    </item>
+    <item>
+      <root>categorie</root>
+      <slug>categoria-2</slug>
+      <text>Categoria 2</text>
+    </item>
+    <item>
+      <root>categorie</root>
+      <slug>categoria-3</slug>
+      <text>Categoria 3</text>
+    </item>
+  </items>
+</contents>

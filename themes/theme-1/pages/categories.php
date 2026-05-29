@@ -1,7 +1,7 @@
 <?php
 /**
- * v2.0.1a
- * 26/05/2026
+ * v1.0.0
+ * 29/05/2026
  * 
  */
 
@@ -11,16 +11,34 @@
 
 */
 
+$CategoriesContents = get_xml_content(APP_DATA_PATH . "/{$lang}/elements/categories.xml");
 
-$_ARG2 = !empty($_ARGS) && isset($_ARGS[1]) && $_ARGS[1]!=""?htmlspecialchars($_ARGS[1]):"";
-$_ARG3 = !empty($_ARGS) && isset($_ARGS[2]) && $_ARGS[2]!=""?htmlspecialchars($_ARGS[2]):"";
+$bodyClasses = "page";
 
 ?>
+<?php // ↓ NO EMPTY LINES FOR A CORRECT HTML OUTPUT ?>
+<?php include THEME_PARTS_PATH . "/header.php"; ?>
 
-<?php if($_ARG3!=""):?>
-	<?php include CATEGORIES_PATH . "/{$_ARG2}/{$_ARG3}.php";?>
-<?php elseif($_ARG2!=""):?>
-	<?php include CATEGORIES_PATH . "/{$_ARG2}.php";?>
-<?php else:?>
-	<?php include CATEGORIES_PATH . "/all.php";?>
-<?php endif;?>
+<?php include THEME_PARTS_PATH . "/breadcrumbs.php"; ?>
+
+<section class="section-highlight">
+	<h1 class="title title-1"><?php echo strtoupper($PageContents->pageTitle);?></h1>
+  <p class="paragraph paragraph-1"><?php echo trim($PageContents->pageDescription);?></p>
+
+	<section class="section-highlight section-highlight-2" aria-label="<?php echo trim($PageContents->section->ariaLabel);?>">
+
+	<?php foreach($CategoriesContents->items->item as $item):
+		$link = rtrim(BASE_URL, '/') . "/{$lang}/{$item->slug}/"; ?>
+
+		<article class="box box-1">
+			<a href="<?php echo $link ?>" class="link link-1" aria-label="<?php echo ucfirst(htmlspecialchars($item->text)); ?>">
+				<?php echo ucfirst(htmlspecialchars($item->text)); ?>
+			</a>
+		</article>
+
+	<?php endforeach;?>
+
+	</section>
+</section>
+
+<?php include THEME_PARTS_PATH . "/footer.php"; ?>

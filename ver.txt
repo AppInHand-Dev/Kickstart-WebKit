@@ -61,3 +61,19 @@ assets\include\functions.php
 2.6.0a
 contents
 crawler
+
+27/05/2026
+2.7.0a
+contents
+portfolio
+footer
+fix: css and js inclusion
+
+28/05/2026-29/05/2026
+1.0.0
+first minimal style
+contacts
+privacy
+cookie
+credits
+sitemap

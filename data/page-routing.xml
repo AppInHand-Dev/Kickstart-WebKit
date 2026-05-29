@@ -1,12 +1,30 @@
 <routing>
   <it>
     <categorie>categories</categorie>
+    <portfolio>portfolio</portfolio>
     <contatti>contacts</contatti>
+    <privacy>privacy</privacy>
+    <cookie>cookie</cookie>
+    <sitemap>sitemap</sitemap>
+    <crediti>credits</crediti>
     <categoria-1>category-1</categoria-1>
+    <categoria-2>category-2</categoria-2>
+    <categoria-3>category-3</categoria-3>
+    <elemento-1>item-1</elemento-1>
+    <elemento-2>item-2</elemento-2>
   </it>
   <en>
     <categories>categories</categories>
+    <portfolio>portfolio</portfolio>
     <contacts>contacts</contacts>
+    <privacy>privacy</privacy>
+    <cookie>cookie</cookie>
+    <sitemap>sitemap</sitemap>
+    <credits>credits</credits>
     <category-1>category-1</category-1>
+    <category-2>category-2</category-2>
+    <category-3>category-3</category-3>
+    <item-1>item-1</item-1>
+    <item-2>item-2</item-2>
   </en>
 </routing>

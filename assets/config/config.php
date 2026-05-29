@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.8.1a
- * 26/05/2026
+ * v1.0.0
+ * 27/05/2026
  * 
  */
 
@@ -23,9 +23,6 @@ define("THEME_JS_PATH", THEME_ASSETS_PATH . "/js");
 
 define("CATEGORIES_URL", BASE_URL . "/categories");
 define("CATEGORIES_PATH", THEME_PAGES_PATH . "/categories");
-define("CATEGORY_1_URL", CATEGORIES_URL . "/category-1");
-define("CATEGORY_1_PATH", CATEGORIES_PATH . "/category-1");
-define('CATEGORY_1_SLUG', 'category-1');
 
 $parsedPath = parse_url(BASE_URL, PHP_URL_PATH);
 $parsedPath = $parsedPath === null ? '' : rtrim($parsedPath, '/');

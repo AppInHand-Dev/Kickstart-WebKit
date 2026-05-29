@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.1.0
- * 26/05/2026
+ * v1.2.0
+ * 29/05/2026
  * 
  * Helper functions
  *
@@ -211,4 +211,57 @@ function translate_internal_to_local($targetLang, $internalSlug, $Routing) {
 		global $routingInverse;
 		return translate_internal_to_local_using_map($targetLang, $internalSlug, $routingInverse);
 }
+
+/**
+ * Load XML content from $filePath.
+ * Return null if $filePath doesn't exist
+ */
+function get_xml_content($filePath){
+		if (!file_exists($filePath)) return null;
+		return simplexml_load_file($filePath);
+}
+
+/**
+ * Iterates files in $dirPath and load XML contents.
+ * yield return to caller. Return null if $dirPath doesn't exist
+ */
+function get_xml_contents($dirPath){
+		if (!file_exists($dirPath)) return null;
+		try {
+			$iterator = new \DirectoryIterator($dirPath);
+			foreach($iterator as $fileinfo){
+				if(!$fileinfo->isDot()){ // not "." and ".."
+					yield get_xml_content("{$dirPath}/{$fileinfo->getFilename()}");
+				}
+			}
+		} catch (\Exception $e) {
+			//echo "Errore: " . $e->getMessage();
+		}
+}
+
+/**
+ * Get a page link for the current languange
+ * param (array|string) $slug
+ */
+function get_page_link($languageCode, $slugs, $baseUrl, $routingInverse) {
+		$link = rtrim($baseUrl, '/') . "/{$languageCode}/";
+		if(is_array($slugs)){
+			foreach($slugs as $slug){
+				$link .= "{$routingInverse[$languageCode][$slug]}/";
+			}
+			return $link;
+		}
+		$link .= "{$routingInverse[$languageCode][$slugs]}/";
+		return $link;
+}
+
+/**
+ * Get a template page name by its ID, otherwise $pageId
+ * 
+ */
+function get_template_page_name($TemplateRouting, $pageId) {
+		if(!property_exists($TemplateRouting, $pageId)) return $pageId;
+		return (string)$TemplateRouting->{$pageId};
+}
+
 ?>

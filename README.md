@@ -2,6 +2,8 @@
 
 A minimalist, file-based PHP boilerplate for building fast, themeable websites. No bloat. Just fast, just light.
 
+<img src="assets/images/screenshot-1.jpg">
+
 ---
 
 ### 💡 Philosophy

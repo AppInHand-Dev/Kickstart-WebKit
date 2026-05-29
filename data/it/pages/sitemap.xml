@@ -1,0 +1,27 @@
+<contents>
+  <meta>
+    <title>Sitemap | My WebSite</title>
+    <description>Sitemap: Mauris malesuada mi et risus scelerisque, vel viverra sapien cursus. Proin et mi euismod, vehicula quam nec, tristique nibh. Nunc euismod maximus lacus, eu tincidunt arcu.</description>
+  </meta>
+  <pageTitle>Sitemap</pageTitle>
+  <pageDescription>
+    <![CDATA[
+Qui trovi la struttura principale del sito. Usa i link per navigare rapidamente alle sezioni.
+]]>
+  </pageDescription>
+  <linkTexts>
+    <home>Home</home>
+    <categories>Categorie</categories>
+    <category1>Categoria 1</category1>
+    <category2>Categoria 2</category2>
+    <category3>Categoria 3</category3>
+    <portfolio>Portfolio</portfolio>
+    <contacts>Contatti</contacts>
+    <privacy>Privacy</privacy>
+    <cookie>Cookie</cookie>
+    <credits>Crediti</credits>
+    <item1>Elemento 1</item1>
+    <item2>Elemento 2</item2>
+    <sitemap>Sitemap</sitemap>
+  </linkTexts>
+</contents>

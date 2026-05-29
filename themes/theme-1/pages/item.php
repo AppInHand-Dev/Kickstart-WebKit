@@ -1,7 +1,7 @@
 <?php
 /**
- * v2.0.0a
- * 10/06/2025
+ * v1.0.0
+ * 29/05/2026
  * 
  */
 
@@ -11,18 +11,20 @@
 
 */
 
+// item content (owerwrite existing)
+$PageContents = get_xml_content(APP_DATA_PATH . "/{$lang}/pages/categories/{$_ARG1}/{$_ARG2}.xml");
+
 $bodyClasses = "item";
 
-$filePathItem = APP_DATA_PATH . "/{$lang}/item-1.xml";
-
-if(file_exists($filePathItem)){
-	$Item = simplexml_load_file($filePathItem);
-}
-
 ?>
-
+<?php // ↓ NO EMPTY LINES FOR A CORRECT HTML OUTPUT ?>
 <?php include THEME_PARTS_PATH . "/header.php"; ?>
 
-<h1>PAGINA <?php echo $Item->name;?></h1>
+<?php include THEME_PARTS_PATH . "/breadcrumbs.php"; ?>
+
+<section class="section-highlight">
+	<h1 class="title title-1"><?php echo strtoupper($PageContents->pageTitle);?></h1>
+	<p class="paragraph paragraph-1"><?php echo trim($PageContents->pageDescription);?></p>
+</section>
 
 <?php include THEME_PARTS_PATH . "/footer.php"; ?>

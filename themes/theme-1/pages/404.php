@@ -1,7 +1,7 @@
 <?php
 /**
- * v2.0.0a
- * 10/06/2025
+ * v1.0.0
+ * 28/05/2026
  * 
  */
 
@@ -11,6 +11,9 @@ $bodyClasses = "404";
 
 <?php include THEME_PARTS_PATH . "/header.php"; ?>
 
-<h1>404 - PAGINA NON TROVATA</h1>
+<section class="section-highlight section-highlight-1">
+	<h1 class="title title-1"><?php echo strtoupper($PageContents->pageTitle);?></h1>
+  <p class="paragraph paragraph-1"><?php echo trim($PageContents->pageDescription);?></p>
+</section>
 
 <?php include THEME_PARTS_PATH . "/footer.php"; ?>

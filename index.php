@@ -1,7 +1,7 @@
 <?php
 /**
- * v2.5.0
- * 26/05/2026
+ * v2.7.0
+ * 29/05/2026
  *
  * Main front controller: language detection, routing translation, page include.
  *
@@ -90,36 +90,33 @@ $params = implode('/', $segments);
 $params = trim($params, '/');
 $_ARGS = $params === '' ? [] : explode('/', $params);
 $_ARG1 = (!empty($_ARGS) && isset($_ARGS[0]) && $_ARGS[0] !== "") ? htmlspecialchars($_ARGS[0]) : "home";
+$_ARG2 = (!empty($_ARGS) && isset($_ARGS[1]) && $_ARGS[1] !== "") ? htmlspecialchars($_ARGS[1]) : $_ARG1;
 
-$pagePath = THEME_PAGES_PATH . "/{$_ARG1}.php";
+// If page has a different template name as its name
+// Load template routing and build maps
+$filePathRouting = APP_DATA_PATH . "/template-routing.xml";
+$TemplateRouting = simplexml_load_file($filePathRouting);
+$templateName = get_template_page_name($TemplateRouting, $_ARG2);
+
+$pagePath = THEME_PAGES_PATH . "/{$templateName}.php";
 $pagePath = file_exists($pagePath) ? $pagePath : THEME_PAGES_PATH . "/404.php";
 
 // 8) Load contents for the resolved language
-$filePathContentsByLang = APP_DATA_PATH . "/{$lang}/contents.xml";
-$Contents = null;
-if (file_exists($filePathContentsByLang)) {
-		$Contents = simplexml_load_file($filePathContentsByLang);
-}
-
-// main menu
-$filePathMainMenuContentsByLang = APP_DATA_PATH . "/{$lang}/elements/main-menu.xml";
-$MainMenuContents = null;
-if (file_exists($filePathMainMenuContentsByLang)) {
-		$MainMenuContents = simplexml_load_file($filePathMainMenuContentsByLang);
-}
-
-// page content
-$filePathPageContentsByLang = APP_DATA_PATH . "/{$lang}/pages/{$_ARG1}.xml";
-$PageContents = null;
-if (file_exists($filePathPageContentsByLang)) {
-		$PageContents = simplexml_load_file($filePathPageContentsByLang);
-}
+$MainMenuContents = get_xml_content(APP_DATA_PATH . "/{$lang}/elements/main-menu.xml");
+$PageContents = get_xml_content(APP_DATA_PATH . "/{$lang}/pages/{$_ARG1}.xml");
+$FooterContents = get_xml_content(APP_DATA_PATH . "/{$lang}/elements/footer.xml");
 
 // 9) Include page and handle 404 header
+$bodyId = !empty($_ARGS) && isset($_ARGS[0]) && $_ARGS[0]!=""?htmlspecialchars($_ARGS[0]):"home";
+$bodyId = !empty($_ARGS) && isset($_ARGS[1]) && $_ARGS[1]!=""?htmlspecialchars($_ARGS[1]):$bodyId;
+$bodyId = !empty($_ARGS) && isset($_ARGS[2]) && $_ARGS[2]!=""?htmlspecialchars($_ARGS[2]):$bodyId;
+
 $bodyClasses = "";
 
 if (basename($pagePath) === '404.php') {
 		header("HTTP/1.1 404 Not Found");
+
+		$PageContents = get_xml_content(APP_DATA_PATH . "/{$lang}/pages/404.xml");
 }
 
 include $pagePath;

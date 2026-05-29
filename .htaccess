@@ -3,24 +3,32 @@
 	#RewriteBase /
 	RewriteBase /sites/kickstart-webkit/
 
-	# se la richiesta è un file o una directory esistente, non riscrivere
-	# redirect temporaneo al prefisso lingua di default (it)
+	# --- Skip rewrites for existing files and directories (fast path) ---
+	RewriteCond %{REQUEST_FILENAME} -f [OR]
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^ - [L]
+
+	# --- Skip rewrites for common static extensions (extra safety) ---
+	RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$ [NC]
+	RewriteRule ^ - [L]
+
+	# --- Skip rewrites for specific asset directories (adjust to your layout) ---
+	RewriteCond %{REQUEST_URI} ^/sites/kickstart-webkit/(assets|templates|templates/theme-1/assets|data|uploads)/ [NC]
+	RewriteRule ^ - [L]
+
+	# If request is not prefixed with a language, redirect to default language (temporary)
 	RewriteCond %{REQUEST_URI} !^/sites/kickstart-webkit/[a-z]{2}/
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ /sites/kickstart-webkit/it/$1 [R=302,L]
 
-	# 1) /it oppure /en (solo lingua) -> index.php?lang=it
+	# 1) /it or /en -> index.php?lang=it
 	RewriteRule ^([a-z]{2})/?$ index.php?lang=$1 [NC,L,QSA]
 
 	# 2) /it/qualcosa/... -> index.php?lang=it&params=qualcosa/...
 	RewriteRule ^([a-z]{2})/(.*)/?$ index.php?lang=$1&params=$2 [NC,L,QSA]
 
-	# 3) fallback senza lingua -> index.php?params=...
+	# 3) fallback without language -> index.php?params=...
 	RewriteRule ^(.*)/?$ index.php?params=$1 [NC,L,QSA]
 
-	#RewriteRule ^(.*)/?(\?lang=en_GB)$ $1 [NC,L]
-	#RewriteRule ^\?lang=en_GB$ index.php [NC,L]
 	#ErrorDocument 404 /index.php?params=404/
 	ErrorDocument 404 /sites/kickstart-webkit/index.php?params=404/
 	#ErrorDocument 403 /index.php?params=403/

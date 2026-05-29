@@ -1,0 +1,28 @@
+<item>
+  <ID>item-2</ID>
+  <slug>item-2</slug>
+  <name>Item 2</name>
+  <enabled>1</enabled>
+  <position>2</position>
+  <meta>
+    <title>Item 2 | My WebSite</title>
+    <description>Item 2: Mauris malesuada mi et risus scelerisque, vel viverra sapien cursus. Proin et mi euismod, vehicula quam nec, tristique nibh. Nunc euismod maximus lacus, eu tincidunt arcu.</description>
+  </meta>
+  <pageTitle>Item 2 Page</pageTitle>
+  <pageDescription>
+    <![CDATA[
+In sit amet semper augue. Morbi commodo ante ac ipsum dictum dapibus. Proin nec sem luctus, feugiat ipsum sit amet, viverra sapien. 
+Praesent et est commodo, accumsan mi non, euismod justo. Quisque suscipit eu purus in dapibus. Aliquam feugiat velit nec erat gravida, vitae ultricies dui efficitur. 
+Integer ultricies nisl a neque bibendum vulputate.
+]]>
+  </pageDescription>
+  <link>
+    <ariaLabel>Item 2</ariaLabel>
+    <text>Item 2</text>
+  </link>
+  <categories>
+    <primary>
+      <slug>category-1</slug>
+    </primary>
+  </categories>
+</item>
