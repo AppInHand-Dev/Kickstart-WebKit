@@ -21,6 +21,15 @@ Kickstart-WebKit was born from the need to develop simple websites quickly, with
 *   **Clean, File-Based Routing:** Create SEO-friendly URLs like `/products/my-product` without complex `.htaccess` rules.
 *   **Config-Driven Theming:** Easily switch the entire look and feel of your site (CSS, images, etc.) by changing a single line in the config file. Perfect for creating multiple brand variations or dark/light modes.
 *   **Zero Dependencies & No Build Step:** Pure PHP and HTML. No `composer install`, no `npm build`. Just edit the files and see the changes instantly.
+*   **Per-file cache layer** — Generic `load_or_cache_xml()` with atomic writes (tmp + rename) that stores parsed results to a fast cache.
+*   **Cache backend fallback** — File cache (PHP/JSON), APCu in-memory, system temp dir fallback, and graceful degradation to no persistent cache when the host disallows writes.
+*   **Routing maps cached** — `page-routing.xml` is parsed into `routingMap` and `routingInverse` and cached per-file to avoid repeated XML parsing.
+*   **Content caching** — Per-language content files (main menu, pages, footer) are cached per-file to reduce I/O and parsing overhead.
+*   **Safe atomic cache writes** — `safe_write_file()` helper to avoid partial writes and race conditions.
+*   **Cache control flags** — `USE_CACHE` config, `?nocache=1` override, and `force` option to regenerate caches in development.
+*   **Lightweight CDATA preservation** — Parser extracts CDATA for known nodes (e.g. `pageDescription`) and stores raw HTML strings in the cache so WYSIWYG content is preserved without heavy DOM processing on every request.
+*   **Template routing from cache** — `get_template_page_name_from_array()` helper resolves template names from cached arrays to avoid re-parsing `template-routing.xml`.
+*   **In-request local cache** — when persistent cache is unavailable, parsed results are kept for the duration of the request to avoid duplicate parsing.
 
 ---
 
@@ -46,9 +55,14 @@ Before deploying your site to a live server, it is **essential** to read and fol
 
 ### 🛣️ Roadmap
 
-This is a personal project that I use to speed up my own work. While it is provided "as-is", I have plans to improve it over time. The next major planned feature is:
+Planned improvements and migration tasks:
 
-*   **Caching routing maps:** Reduce repeated parsing of page-routing.xml by serializing the generated routingMap and routingInverse to a fast cache file (preferably a PHP file that returns the arrays so it benefits from OPcache). In production load the cached file when up to date; in development allow disabling or forcing regeneration.
+* **Migration: XML → JSON** — provide migration scripts and tooling to convert existing XML content and routing files to JSON, simplifying parsing and reducing conversion overhead. The migration will include:
+  * a safe conversion script that preserves CDATA/HTML content,
+  * dual-read compatibility (prefer JSON if present, fallback to XML),
+  * documentation and examples for updating templates to consume JSON.
+* **Optional: Admin CLI** — a small command-line tool to regenerate caches, clear cache directory, and run the XML→JSON migration.
+* **Optional: APCu/Redis integration guide** — documentation and examples for using APCu or Redis as a hot cache in high‑traffic deployments.
 
 ---
 

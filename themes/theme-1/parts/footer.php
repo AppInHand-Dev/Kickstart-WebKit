@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.0.0
- * 28/05/2026
+ * v1.0.1
+ * 30/05/2026
  * 
  */
 
@@ -25,7 +25,7 @@ $creditsPageLink = get_page_link($lang, "credits", $baseUrl, $routingInverse);
 				<div class="contact-item">📍 <a href="https://maps.google.com/?q=Via+Roma+10+Roma" target="_blank" rel="noopener">Via Roma 10, Roma</a></div>
 			</div>
 
-			<nav class="footer-nav" aria-label="<?php echo htmlspecialchars($FooterContents->navigationAriaLabel);?>">
+			<nav class="footer-nav" aria-label="<?php echo htmlspecialchars($FooterContents["navigationAriaLabel"]);?>">
 				<a href="<?php echo rtrim(BASE_URL,'/') . '/' . $lang; ?>/privacy/">Privacy</a>
 				<a href="<?php echo rtrim(BASE_URL,'/') . '/' . $lang; ?>/cookie/">Cookie</a>
 				<a href="<?php echo rtrim(BASE_URL,'/') . '/' . $lang; ?>/sitemap/">Sitemap</a>
@@ -37,7 +37,7 @@ $creditsPageLink = get_page_link($lang, "credits", $baseUrl, $routingInverse);
 			</div>
 
 			<div class="footer-meta">
-				<small><?php echo htmlspecialchars($FooterContents->themeVersionText);?> <strong>v1.0.0</strong> • <a href="<?php echo $creditsPageLink;?>"><?php echo htmlspecialchars($FooterContents->creditsText);?></a></small>
+				<small><?php echo htmlspecialchars($FooterContents["themeVersionText"]);?> <strong>v1.0.1</strong> • <a href="<?php echo $creditsPageLink;?>"><?php echo htmlspecialchars($FooterContents["creditsText"]);?></a></small>
 			</div>
 		</div>
 	</footer>

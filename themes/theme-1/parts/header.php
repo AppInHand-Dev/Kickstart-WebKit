@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.0.0
- * 29/05/2026
+ * v1.1.0
+ * 30/05/2026
  * 
  */
 
@@ -26,8 +26,8 @@
 	<link rel="alternate" hreflang="x-default" href="<?php echo BASE_URL;?>/">
 	<link rel="canonical" href="<?php echo $uriAbs;?>"/>
 
-	<title><?php echo ($PageContents != null) ? trim($PageContents->meta->title) : "Page | Lorem ipsum dolor sit amet, consectetur";?></title>
-	<meta name="description" content="<?php echo ($PageContents != null) ? $PageContents->meta->description : 'Mauris malesuada mi et risus scelerisque, vel viverra sapien cursus. Proin et mi euismod, vehicula quam nec, tristique nibh. Nunc euismod maximus lacus, eu tincidunt arcu.';?>">
+	<title><?php echo ($PageContents != null) ? trim($PageContents["meta"]["title"]) : "Page | Lorem ipsum dolor sit amet, consectetur";?></title>
+	<meta name="description" content="<?php echo ($PageContents != null) ? $PageContents["meta"]["description"] : 'Mauris malesuada mi et risus scelerisque, vel viverra sapien cursus. Proin et mi euismod, vehicula quam nec, tristique nibh. Nunc euismod maximus lacus, eu tincidunt arcu.';?>">
 
 	<link rel="stylesheet" href="<?php echo ($_SERVER["SERVER_NAME"]!='localhost')?THEME_CSS_PATH . '/min/reset-min.css':THEME_CSS_PATH.'/reset.css';?>">
 	<link rel="stylesheet" href="<?php echo ($_SERVER["SERVER_NAME"]!='localhost')?THEME_CSS_PATH . '/min/style-min.css':THEME_CSS_PATH.'/style.css';?>">
@@ -43,11 +43,11 @@
 		</nav>
 	
 		<nav class="nav nav-1">
-			<?php foreach($MainMenuContents->items->item as $item):
+			<?php foreach($MainMenuContents["items"]["item"] as $item):
 				$link  = rtrim(BASE_URL, '/') . '/' . $lang . '/';
-				$link .= ($item->slug!="")?$item->slug. '/':'';
+				$link .= (!is_array($item["slug"]))?(($item["slug"]!="")?$item["slug"]. '/':''):'';
 				?>
-				<a href="<?php echo $link; ?>"><?php echo strtoupper($item->text);?></a>
+				<a href="<?php echo $link; ?>"><?php echo strtoupper($item["text"]);?></a>
 			<?php endforeach;?>
 		</nav>
 

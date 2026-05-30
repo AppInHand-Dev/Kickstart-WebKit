@@ -1,8 +1,8 @@
 <?php
 /**
- * v1.2.0
- * 29/05/2026
- * 
+ * v1.3.0
+ * 30/05/2026
+ *
  * Helper functions
  *
  */
@@ -73,6 +73,171 @@ function detect_lang_in_segments($segments, $validLangs) {
 }
 
 /**
+ * Try to write a file atomically. Returns true on success.
+ */
+function safe_write_file(string $path, string $content): bool {
+		$tmp = $path . '.tmp';
+		if (@file_put_contents($tmp, $content, LOCK_EX) === false) {
+				@unlink($tmp);
+				return false;
+		}
+		// rename is atomic on POSIX
+		if (!@rename($tmp, $path)) {
+				@unlink($tmp);
+				return false;
+		}
+		@chmod($path, 0644);
+		return true;
+}
+
+/**
+ * Determine a usable cache backend and return an array with:
+ *  ['type'=>'file'|'apcu'|'sys'|'none', 'path'=>string|null]
+ */
+function detect_cache_backend(string $preferredDir = null): array {
+		// 1) try preferred dir (APP_CACHE_PATH)
+		if ($preferredDir) {
+				// try create dir if missing
+				if (!is_dir($preferredDir)) {
+						@mkdir($preferredDir, 0755, true);
+				}
+				if (is_dir($preferredDir) && is_writable($preferredDir)) {
+						return ['type' => 'file', 'path' => rtrim($preferredDir, '/\\')];
+				}
+		}
+
+		// 2) try APCu
+		if (function_exists('apcu_enabled') ? apcu_enabled() : (function_exists('apcu_fetch') && ini_get('apc.enabled'))) {
+				return ['type' => 'apcu', 'path' => null];
+		}
+
+		// 3) try system temp dir
+		$sys = sys_get_temp_dir();
+		if ($sys) {
+				$probe = rtrim($sys, '/\\') . '/app-cache';
+				if (!is_dir($probe)) @mkdir($probe, 0755, true);
+				if (is_dir($probe) && is_writable($probe)) {
+						return ['type' => 'sys', 'path' => $probe];
+				}
+		}
+
+		// 4) fallback: no persistent cache
+		return ['type' => 'none', 'path' => null];
+}
+
+/**
+ * load_or_cache_xml with backend fallback.
+ * Options:
+ *  - format: 'php'|'json'
+ *  - ttl: seconds (optional)
+ *  - force: bool
+ *  - parser: callable($xmlPath, SimpleXMLElement): mixed
+ *  - cachePrefix: string
+ *  - cacheBackend: 'auto'|'file'|'apcu'|'sys'|'none' (default 'auto')
+ */
+function load_or_cache_xml(string $xmlPath, string $cacheDir, array $opts = []) {
+		$opts = array_merge([
+				'format' => 'php',
+				'ttl' => 0,
+				'force' => false,
+				'parser' => null,
+				'cachePrefix' => '',
+				'cacheBackend' => 'auto',
+		], $opts);
+
+		// choose backend
+		$backend = $opts['cacheBackend'] === 'auto' ? detect_cache_backend($cacheDir) : ['type'=>$opts['cacheBackend'],'path'=>$cacheDir];
+
+		// build cache key / filename
+		$real = realpath($xmlPath) ?: $xmlPath;
+		$hash = substr(md5($real), 0, 12);
+		$baseName = ($opts['cachePrefix'] !== '' ? $opts['cachePrefix'] . '-' : '') . basename($xmlPath);
+		$cacheFile = ($backend['type'] === 'file' || $backend['type'] === 'sys') ? ($backend['path'] . '/' . $baseName . '.' . $hash . ($opts['format'] === 'php' ? '.php' : '.json')) : null;
+		$apcuKey = 'cache_' . ($opts['cachePrefix'] !== '' ? $opts['cachePrefix'] . '_' : '') . $hash;
+
+		// force removal if requested
+		if ($opts['force']) {
+				if ($cacheFile && file_exists($cacheFile)) @unlink($cacheFile);
+				if ($backend['type'] === 'apcu' && function_exists('apcu_delete')) @apcu_delete($apcuKey);
+		}
+
+		// try load from backend
+		if (!$opts['force']) {
+				if ($backend['type'] === 'file' || $backend['type'] === 'sys') {
+						if ($cacheFile && file_exists($cacheFile) && file_exists($xmlPath)) {
+								$xmlMtime = filemtime($xmlPath);
+								$cacheMtime = filemtime($cacheFile);
+								$ttlOk = ($opts['ttl'] > 0) ? (($cacheMtime + $opts['ttl']) >= time()) : true;
+								if ($cacheMtime !== false && $xmlMtime !== false && $cacheMtime >= $xmlMtime && $ttlOk) {
+										if ($opts['format'] === 'php') {
+												$data = @include $cacheFile;
+												if ($data !== false) return $data;
+										} else {
+												$json = @file_get_contents($cacheFile);
+												if ($json !== false) return json_decode($json, true);
+										}
+								}
+						}
+				} elseif ($backend['type'] === 'apcu') {
+						if (function_exists('apcu_fetch')) {
+								$success = false;
+								$data = apcu_fetch($apcuKey, $success);
+								if ($success) {
+										// optional TTL check stored inside value
+										if (is_array($data) && isset($data['__meta'])) {
+												$meta = $data['__meta'];
+												if (isset($meta['xml_mtime']) && file_exists($xmlPath)) {
+														$xmlMtime = filemtime($xmlPath);
+														if ($meta['xml_mtime'] >= $xmlMtime) {
+																return $data['value'];
+														}
+												} else {
+														return $data['value'];
+												}
+										} else {
+												return $data;
+										}
+								}
+						}
+				}
+		}
+
+		// parse XML
+		if (!file_exists($xmlPath)) return null;
+		libxml_use_internal_errors(true);
+		$xml = simplexml_load_file($xmlPath, 'SimpleXMLElement', LIBXML_NOCDATA);
+		if ($xml === false) return null;
+
+		$value = is_callable($opts['parser']) ? call_user_func($opts['parser'], $xmlPath, $xml) : json_decode(json_encode($xml), true);
+
+		// write to backend
+		if ($backend['type'] === 'file' || $backend['type'] === 'sys') {
+				if ($cacheFile) {
+						if ($opts['format'] === 'php') {
+								$export = var_export($value, true);
+								$php = "<?php\n// Auto-generated cache for " . addslashes($xmlPath) . "\nreturn " . $export . ";\n";
+								@safe_write_file($cacheFile, $php);
+						} else {
+								$json = json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+								@safe_write_file($cacheFile, $json);
+						}
+				}
+		} elseif ($backend['type'] === 'apcu') {
+				if (function_exists('apcu_store')) {
+						$meta = ['xml_mtime' => file_exists($xmlPath) ? filemtime($xmlPath) : time()];
+						$store = ['__meta' => $meta, 'value' => $value];
+						@apcu_store($apcuKey, $store, ($opts['ttl'] > 0 ? $opts['ttl'] : 0));
+				}
+		} else {
+				// none: keep in-request cache (static) to avoid reparsing multiple times in same request
+				static $localCache = [];
+				$localCache[$apcuKey] = $value;
+		}
+
+		return $value;
+}
+
+/**
  * Load routing XML and build two fast lookup maps:
  *  - routingMap[lang][localized] = internal
  *  - routingInverse[lang][internal] = localized
@@ -98,6 +263,39 @@ function load_routing_maps($filePathRouting) {
 				}
 		}
 		return [$Routing, $routingMap, $routingInverse];
+}
+
+function load_routing_maps_cached(string $filePathRouting, string $cacheDir, array $opts = []) {
+		// prefer PHP cache for arrays
+		$opts = array_merge(['format' => 'php', 'cachePrefix' => 'routing'], $opts);
+
+		// parser: build maps from SimpleXMLElement
+		$parser = function($xmlPath, SimpleXMLElement $xml) {
+				$routingMap = [];
+				$routingInverse = [];
+				foreach ($xml->children() as $langNodeName => $langNode) {
+						$langCode = (string)$langNodeName;
+						$routingMap[$langCode] = [];
+						$routingInverse[$langCode] = [];
+						foreach ($langNode->children() as $local => $internal) {
+								$localKey = trim((string)$local);
+								$internalVal = trim((string)$internal);
+								$routingMap[$langCode][$localKey] = $internalVal;
+								$routingInverse[$langCode][$internalVal] = $localKey;
+						}
+				}
+				return ['routingMap' => $routingMap, 'routingInverse' => $routingInverse];
+		};
+
+		$opts['parser'] = $parser;
+
+		$data = load_or_cache_xml($filePathRouting, $cacheDir, $opts);
+		if (!is_array($data)) {
+				return [null, [], []];
+		}
+
+		// We still keep $Routing null to indicate cache used; if you need the SimpleXMLElement, you can parse separately
+		return [null, $data['routingMap'] ?? [], $data['routingInverse'] ?? []];
 }
 
 /**
@@ -221,6 +419,16 @@ function get_xml_content($filePath){
 		return simplexml_load_file($filePath);
 }
 
+function get_xml_content_cached(string $xmlPath, string $cacheDir, array $opts = []) {
+		// default: cache per lingua/pagina in formato php
+		$opts = array_merge(['format' => 'php', 'cachePrefix' => 'content'], $opts);
+		// parser: return array representation of XML
+		$opts['parser'] = function($path, SimpleXMLElement $xml) {
+				return json_decode(json_encode($xml), true);
+		};
+		return load_or_cache_xml($xmlPath, $cacheDir, $opts);
+}
+
 /**
  * Iterates files in $dirPath and load XML contents.
  * yield return to caller. Return null if $dirPath doesn't exist
@@ -232,6 +440,34 @@ function get_xml_contents($dirPath){
 			foreach($iterator as $fileinfo){
 				if(!$fileinfo->isDot()){ // not "." and ".."
 					yield get_xml_content("{$dirPath}/{$fileinfo->getFilename()}");
+				}
+			}
+		} catch (\Exception $e) {
+			//echo "Errore: " . $e->getMessage();
+		}
+}
+
+function get_xml_contents_cached(string $dirPath, string $cacheDir, array $opts = []){
+		if (!file_exists($dirPath)) return null;
+		try {
+			$iterator = new \DirectoryIterator($dirPath);
+			foreach($iterator as $fileinfo){
+				if(!$fileinfo->isDot()){ // not "." and ".."
+					yield get_xml_content_cached("{$dirPath}/{$fileinfo->getFilename()}", $cacheDir, $opts);
+				}
+			}
+		} catch (\Exception $e) {
+			//echo "Errore: " . $e->getMessage();
+		}
+}
+
+function load_or_cache_xmls(string $dirPath, string $cacheDir, array $opts = []){
+		if (!file_exists($dirPath)) return null;
+		try {
+			$iterator = new \DirectoryIterator($dirPath);
+			foreach($iterator as $fileinfo){
+				if(!$fileinfo->isDot()){ // not "." and ".."
+					yield load_or_cache_xml("{$dirPath}/{$fileinfo->getFilename()}", $cacheDir, $opts);
 				}
 			}
 		} catch (\Exception $e) {
@@ -256,12 +492,57 @@ function get_page_link($languageCode, $slugs, $baseUrl, $routingInverse) {
 }
 
 /**
+ * Resolve template name from cached array of template-routing.xml
+ *
+ * @param array|null $arr Parsed array from template-routing.xml
+ * @param string $pageKey The page key to resolve (e.g. $_ARG2)
+ * @return string|null Template name or null if not found
+ */
+function get_template_page_name_from_array($arr, string $pageKey) {
+		if (!is_array($arr) || $pageKey === '') return null;
+
+		// direct case: top-level 'routing' node
+		if (isset($arr['routing']) && is_array($arr['routing'])) {
+				if (array_key_exists($pageKey, $arr['routing'])) {
+						return (string)$arr['routing'][$pageKey];
+				}
+		}
+
+		// alternative case: mapping directly at root (no 'routing' wrapper)
+		if (array_key_exists($pageKey, $arr)) {
+				return (string)$arr[$pageKey];
+		}
+
+		// fallback: simple recursive search (if structure differs)
+		$found = null;
+		$walker = function($node) use (&$walker, $pageKey, &$found) {
+				if ($found !== null || !is_array($node)) return;
+				foreach ($node as $k => $v) {
+						if ($k === $pageKey && (is_string($v) || is_numeric($v))) {
+								$found = (string)$v;
+								return;
+						}
+						if (is_array($v)) $walker($v);
+				}
+		};
+		$walker($arr);
+
+		return $found;
+}
+
+/**
  * Get a template page name by its ID, otherwise $pageId
- * 
+ *
  */
 function get_template_page_name($TemplateRouting, $pageId) {
 		if(!property_exists($TemplateRouting, $pageId)) return $pageId;
 		return (string)$TemplateRouting->{$pageId};
+}
+
+function clear_cache_dir($dir) {
+		foreach (glob(rtrim($dir,'/') . '/*') as $f) {
+				if (is_file($f)) @unlink($f);
+		}
 }
 
 ?>

@@ -1,5 +1,5 @@
 /** @preserve
- * v1.0.0 29/05/2026
+ * v1.0.1 30/05/2026
  * Author: App In Hand
  * @endpreserve
  */
@@ -35,6 +35,11 @@ body{
   -moz-osx-font-smoothing:grayscale;
   line-height:1.45;
   padding:0;
+}
+
+strong
+{
+  font-weight: 600;
 }
 
 /* Page container */

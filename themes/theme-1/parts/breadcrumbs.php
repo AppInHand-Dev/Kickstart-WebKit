@@ -1,17 +1,18 @@
 <?php
 /**
- * v1.0.0
- * 04/02/2026
+ * v1.1.0
+ * 30/05/2026
  *
  * Breadcrumbs: build localized links using internal slugs ($_ARGS).
  * Uses routing inverse map if available to map internal -> localized slugs.
  */
 
-$filePathBreadcrumbsRouting = APP_DATA_PATH . "/{$lang}/breadcrumbs-routing.xml";
-$BreadcrumbsRouting = null;
-if (file_exists($filePathBreadcrumbsRouting)) {
-		$BreadcrumbsRouting = simplexml_load_file($filePathBreadcrumbsRouting);
-}
+$BreadcrumbsRouting = load_or_cache_xml(APP_DATA_PATH . "/{$lang}/breadcrumbs-routing.xml", APP_CACHE_PATH, [
+		'format' => 'php',
+		'cachePrefix' => 'content',
+		'parser' => function($p, SimpleXMLElement $xml) { return json_decode(json_encode($xml), true); },
+		'force' => $forceCacheRegen
+]);
 
 // Try to reuse routing inverse map built by index.php if available
 $routingInverseForLang = [];
@@ -53,8 +54,8 @@ function internal_to_localized($internalSlug, $routingInverseForLang) {
 						// Home link (localized root)
 						$homeUrl = rtrim(BASE_URL, '/') . '/' . $lang . '/';
 						$homeText = 'Home';
-						if ($BreadcrumbsRouting && property_exists($BreadcrumbsRouting, 'home')) {
-								$homeText = (string)$BreadcrumbsRouting->home;
+						if ($BreadcrumbsRouting && isset($BreadcrumbsRouting['home'])) {
+								$homeText = (string)$BreadcrumbsRouting['home'];
 						} else {
 								// try to find a localized label for 'home' in routing or fallback to 'Home'
 								if (isset($routingInverseForLang['home']) && $routingInverseForLang['home'] !== '') {
@@ -79,8 +80,8 @@ function internal_to_localized($internalSlug, $routingInverseForLang) {
 
 								// display text: prefer breadcrumbs-routing.xml (per-language), fallback to localized or internal
 								$displayText = $localized;
-								if ($BreadcrumbsRouting && property_exists($BreadcrumbsRouting, $internal)) {
-										$displayText = (string)$BreadcrumbsRouting->{$internal};
+								if ($BreadcrumbsRouting && isset($BreadcrumbsRouting[$internal])) {
+										$displayText = (string)$BreadcrumbsRouting[$internal];
 								} elseif ($displayText === '') {
 										$displayText = $internal;
 								}
