@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.1.0
- * 30/05/2026
+ * v1.1.1
+ * 19/06/2026
  * 
  */
 
@@ -26,6 +26,8 @@ define("CATEGORIES_URL", BASE_URL . "/categories");
 define("CATEGORIES_PATH", THEME_PAGES_PATH . "/categories");
 
 define("USE_CACHE", true);
+
+define("ROBOTS_CONTENT", "noindex, nofollow");
 
 $parsedPath = parse_url(BASE_URL, PHP_URL_PATH);
 $parsedPath = $parsedPath === null ? '' : rtrim($parsedPath, '/');

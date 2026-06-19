@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.1.0
- * 30/05/2026
+ * v1.1.1
+ * 19/06/2026
  * 
  */
 
@@ -18,7 +18,7 @@
 <head>
 
 	<base href="<?php echo BASE_URL; ?>/">
-	<meta name="robots" content="noindex, nofollow">
+	<meta name="robots" content="<?php echo ROBOTS_CONTENT;?>">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 

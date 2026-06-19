@@ -4,6 +4,10 @@ A minimalist, file-based PHP boilerplate for building fast, themeable websites. 
 
 <img src="assets/images/screenshot-1.jpg">
 
+
+[WATCH LIVE](https://www.appinhand.it/sites/kickstart-webkit)
+
+
 ---
 
 ### 💡 Philosophy

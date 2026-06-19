@@ -33,5 +33,10 @@ ErrorDocument 403 /index.php?params=403/
 
 .\assets\config\config.php
 - define("BASE_URL", "https://www.domain.com");
+- define("ROBOTS_CONTENT", "noindex, nofollow")
+              -> define("ROBOTS_CONTENT", "index, follow")
 
 .\robots.txt
+Disallow: /
+    -> Disallow:
+Sitemap: https://www.your-domain.com/sitemap.xml
