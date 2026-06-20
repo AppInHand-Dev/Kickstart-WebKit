@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.1.1
- * 19/06/2026
+ * v1.2.0
+ * 20/06/2026
  * 
  */
 
@@ -37,20 +37,26 @@
 <body id="<?php echo $bodyId;?>" class="<?php echo $bodyClasses;?>">
 
 	<header>
+		<div class="header-inner">
 
-		<nav class="nav nav-2">
-			<?php echo $LangLinks; ?>
-		</nav>
+			<nav class="nav nav-2">
+				<?php echo $LangLinks; ?>
+			</nav>
+
+			<button id="nav-toggle" class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="TODO: Apri menu">
+				<span class="hamburger" aria-hidden="true"></span>
+			</button>
 	
-		<nav class="nav nav-1">
-			<?php foreach($MainMenuContents["items"]["item"] as $item):
-				$link  = rtrim(BASE_URL, '/') . '/' . $lang . '/';
-				$link .= (!is_array($item["slug"]))?(($item["slug"]!="")?$item["slug"]. '/':''):'';
-				?>
-				<a href="<?php echo $link; ?>"><?php echo strtoupper($item["text"]);?></a>
-			<?php endforeach;?>
-		</nav>
+			<nav id="main-nav" class="nav nav-1">
+				<?php foreach($MainMenuContents["items"]["item"] as $item):
+					$link  = rtrim(BASE_URL, '/') . '/' . $lang . '/';
+					$link .= (!is_array($item["slug"]))?(($item["slug"]!="")?$item["slug"]. '/':''):'';
+					?>
+					<a href="<?php echo $link; ?>"><?php echo strtoupper($item["text"]);?></a>
+				<?php endforeach;?>
+			</nav>
 
+		</div>
 	</header>
 
 	<main>

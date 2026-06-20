@@ -85,3 +85,7 @@ memcache
 19/06/2026
 1.1.1
 header robots
+
+20/06/2026
+1.2.0
+hamburger menu

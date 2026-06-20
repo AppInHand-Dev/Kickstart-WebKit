@@ -1,5 +1,5 @@
 /*!
- * v1.0.0 28/05/2026
+ * v1.1.0 20/06/2026
  * Author: App In Hand
  */
 
@@ -39,4 +39,39 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // hamburger menu
+  var btn = document.getElementById('nav-toggle');
+  var body = document.body;
+  var navId = btn ? btn.getAttribute('aria-controls') : null;
+  var nav = navId ? document.getElementById(navId) : null;
+  if (!btn || !nav) return;
+
+  function openNav() {
+    btn.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    body.classList.add('nav-open');
+  }
+  function closeNav() {
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    body.classList.remove('nav-open');
+  }
+  btn.addEventListener('click', function(){
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    if (expanded) closeNav(); else openNav();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && body.classList.contains('nav-open')) closeNav();
+  });
+  document.addEventListener('click', function(e){
+    if (!body.classList.contains('nav-open')) return;
+    if (e.target === btn || btn.contains(e.target)) return;
+    if (nav.contains(e.target)) return;
+    closeNav();
+  });
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 720 && body.classList.contains('nav-open')) closeNav();
+  });
+
 });

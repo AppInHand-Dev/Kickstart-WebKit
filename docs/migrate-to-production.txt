@@ -18,10 +18,12 @@ to group css and js files and then minify
 DELETE NOT MINIFIED: search for "*.css" and "*.js", delete the files that have their "-min.css" and "-min.js" and upload on server.
 
 DELETE FOLDERS:
+- .git
+- .vscode
 - docs
 - utilities
-- .vscode
 - data/cache
+- assets/images/screenshot-1.jpg
 
 ________________________________________________________________________________________________________________________________________________________________________________________________________
 
