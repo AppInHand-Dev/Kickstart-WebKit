@@ -89,3 +89,7 @@ header robots
 20/06/2026
 1.2.0
 hamburger menu
+
+21/06/2026
+1.2.1
+header.xml

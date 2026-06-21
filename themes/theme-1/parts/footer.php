@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.0.1
- * 30/05/2026
+ * v1.0.2
+ * 21/06/2026
  * 
  */
 
@@ -37,7 +37,7 @@ $creditsPageLink = get_page_link($lang, "credits", $baseUrl, $routingInverse);
 			</div>
 
 			<div class="footer-meta">
-				<small><?php echo htmlspecialchars($FooterContents["themeVersionText"]);?> <strong>v1.0.1</strong> • <a href="<?php echo $creditsPageLink;?>"><?php echo htmlspecialchars($FooterContents["creditsText"]);?></a></small>
+				<small><?php echo htmlspecialchars($FooterContents["themeVersionText"]);?> <strong>v1.1.0</strong> • <a href="<?php echo $creditsPageLink;?>"><?php echo htmlspecialchars($FooterContents["creditsText"]);?></a></small>
 			</div>
 		</div>
 	</footer>

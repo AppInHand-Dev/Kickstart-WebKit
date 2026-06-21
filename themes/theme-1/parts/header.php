@@ -1,7 +1,7 @@
 <?php
 /**
- * v1.2.0
- * 20/06/2026
+ * v1.2.1
+ * 21/06/2026
  * 
  */
 
@@ -43,7 +43,7 @@
 				<?php echo $LangLinks; ?>
 			</nav>
 
-			<button id="nav-toggle" class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="TODO: Apri menu">
+			<button id="nav-toggle" class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="<?php echo htmlspecialchars($HeaderContents["navToggleAriaLabel"]);?>">
 				<span class="hamburger" aria-hidden="true"></span>
 			</button>
 	

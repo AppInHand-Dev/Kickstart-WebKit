@@ -1,7 +1,7 @@
 <?php
 /**
- * v2.8.0
- * 30/05/2026
+ * v2.8.1
+ * 21/06/2026
  *
  * Main front controller: language detection, routing translation, page include.
  *
@@ -167,6 +167,13 @@ $MainMenuContents = load_or_cache_xml(APP_DATA_PATH . "/{$lang}/elements/main-me
 $PageContents = load_or_cache_xml(APP_DATA_PATH . "/{$lang}/pages/{$_ARG1}.xml", APP_CACHE_PATH, [
 		'format' => 'php',
 		'cachePrefix' => 'content-page',
+		'parser' => function($p, SimpleXMLElement $xml) { return json_decode(json_encode($xml), true); },
+		'force' => $forceCacheRegen
+]);
+
+$HeaderContents = load_or_cache_xml(APP_DATA_PATH . "/{$lang}/elements/header.xml", APP_CACHE_PATH, [
+		'format' => 'php',
+		'cachePrefix' => 'content',
 		'parser' => function($p, SimpleXMLElement $xml) { return json_decode(json_encode($xml), true); },
 		'force' => $forceCacheRegen
 ]);
